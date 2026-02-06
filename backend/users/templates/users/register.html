@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MailFlow | Registration</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section with Branding -->
+        <div class="left-section">
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                <div>
+                    <div class="logo-text">MailFlow</div>
+                    <div class="logo-subtitle">EMAIL PLATFORM</div>
+                </div>
+            </div>
+            
+            <div class="left-content">
+                <h1 class="left-title">Join the Future of Email Communication</h1>
+                <p class="left-description">Experience a seamless, secure, and sophisticated email platform designed for professionals who value efficiency and elegance.</p>
+                
+                <ul class="features">
+                    <li><i class="fas fa-shield-alt"></i> <span>Military-grade security & privacy protection</span></li>
+                    <li><i class="fas fa-bolt"></i> <span>Lightning-fast delivery with 99.9% uptime</span></li>
+                    <li><i class="fas fa-palette"></i> <span>Customizable interface with elegant themes</span></li>
+                    <li><i class="fas fa-headset"></i> <span>24/7 premium customer support</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Right Section with Registration Form -->
+        <div class="right-section">
+            <div id="registrationFormSection">
+                <div class="form-header">
+                    <h2 class="form-title">Create Your Account</h2>
+                    <p class="form-subtitle">Join MailFlow today and experience premium email service</p>
+                </div>
+                
+                <form id="registerForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Create a strong password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="mobile">Mobile Number</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-mobile-alt input-icon"></i>
+                            <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter your mobile number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="dob">Date of Birth</label>
+                        <div class="dob-container">
+                            <i class="fas fa-calendar-alt dob-icon"></i>
+                            <input type="date" name="dob" id="dob" class="dob-input" required>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="submit-btn" id="sendOtpBtn">
+                        <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Send OTP
+                    </button>
+                </form>
+                
+                <div class="login-link">
+                   Already have an account?
+                   <a href="{% url 'login' %}">Sign in here</a>
+                </div>
+                
+                <div class="footer">
+                    <p>By registering, you agree to MailFlow's <a href="#" style="color: #2d547d;">Terms of Service</a> and <a href="#" style="color: #2d547d;">Privacy Policy</a></p>
+                    <p style="margin-top: 10px;">&copy; 2023 MailFlow. All rights reserved.</p>
+                </div>
+            </div>
+            
+            <!-- OTP Verification Section -->
+            <div id="otpSection" class="otp-section">
+                <button type="button" class="back-to-form-btn" id="backToFormBtn">
+                    <i class="fas fa-arrow-left"></i> Back to Registration
+                </button>
+                
+                <div class="form-header">
+                    <h2 class="form-title">Verify Your Account</h2>
+                    <p class="form-subtitle">Enter the 6-digit OTP sent to your mobile number</p>
+                </div>
+                
+                <div class="otp-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span id="otpSentMessage">OTP sent to your registered email:<strong id="userEmail"></strong>. Valid for <span id="otpTimer">05:00</span> minutes.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Enter OTP</label>
+                    <div class="otp-input-container">
+                        <input type="text" maxlength="1" class="otp" inputmode="numeric" data-index="1" autocomplete="off">
+                        <input type="text" maxlength="1" class="otp" inputmode="numeric" data-index="2" autocomplete="off">
+                        <input type="text" maxlength="1" class="otp" inputmode="numeric" data-index="3" autocomplete="off">
+                        <input type="text" maxlength="1" class="otp" inputmode="numeric" data-index="4" autocomplete="off">
+                        <input type="text" maxlength="1" class="otp" inputmode="numeric" data-index="5" autocomplete="off">
+                        <input type="text" maxlength="1" class="otp" inputmode="numeric" data-index="6" autocomplete="off">
+                    </div>
+                    <div class="error-message" id="otpError"></div>
+                    <div class="timer" id="timerDisplay">Resend OTP in <span id="countdown">05:00</span></div>
+                </div>
+                
+                <div class="otp-actions">
+                    <button type="button" class="otp-btn verify-otp-btn" id="verifyOtpBtn">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i> Verify OTP
+                    </button>
+                    <button type="button" class="otp-btn resend-otp-btn" id="resendOtpBtn" disabled>
+                        <i class="fas fa-redo" style="margin-right: 10px;"></i> Resend OTP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'users/register.js' %}"></script>
+</body>
+</html>

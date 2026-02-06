@@ -1,0 +1,169 @@
+/* Login Page Specific Styles */
+.login-btn {
+    background: linear-gradient(to right, #1a365d, #2d547d);
+    margin-top: 20px;
+}
+
+.login-btn:hover {
+    background: linear-gradient(to right, #2d547d, #1a365d);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: -10px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+.remember-me input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    accent-color: #2d547d;
+}
+
+.forgot-password {
+    color: #2d547d;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    color: #1a365d;
+    text-decoration: underline;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #e1e5eb;
+}
+
+.divider span {
+    padding: 0 15px;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+    border: 2px solid #e1e5eb;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #444;
+    transition: all 0.3s;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.google-btn:hover {
+    background-color: #f5f7fa;
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 15px;
+}
+
+.register-link a {
+    color: #2d547d;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.register-link a:hover {
+    color: #1a365d;
+    text-decoration: underline;
+}
+
+/* Testimonial for login page */
+.testimonial {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 40px;
+    border-left: 4px solid #e6a23c;
+}
+
+.quote {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.quote i {
+    color: #e6a23c;
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.quote p {
+    font-style: italic;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.author {
+    display: flex;
+    flex-direction: column;
+    padding-left: 35px;
+}
+
+.author strong {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.author span {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Responsive adjustments for login */
+@media (max-width: 900px) {
+    .testimonial {
+        margin-top: 30px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .testimonial {
+        margin-top: 25px;
+    }
+}

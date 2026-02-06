@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MailFlow | Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section with Branding -->
+        <div class="left-section">
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                <div>
+                    <div class="logo-text">MailFlow</div>
+                    <div class="logo-subtitle">EMAIL PLATFORM</div>
+                </div>
+            </div>
+            
+            <div class="left-content">
+                <h1 class="left-title">Welcome Back to MailFlow</h1>
+                <p class="left-description">Access your secure email platform with enterprise-grade security, seamless communication, and elegant design.</p>
+                
+                <ul class="features">
+                    <li><i class="fas fa-shield-alt"></i> <span>Protected by end-to-end encryption</span></li>
+                    <li><i class="fas fa-inbox"></i> <span>Smart inbox with priority filtering</span></li>
+                    <li><i class="fas fa-cloud"></i> <span>Unlimited cloud storage</span></li>
+                    <li><i class="fas fa-sync-alt"></i> <span>Real-time sync across all devices</span></li>
+                </ul>
+                
+                <div class="testimonial">
+                    <div class="quote">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"MailFlow has revolutionized how our team communicates. The security and design are unmatched."</p>
+                    </div>
+                    <div class="author">
+                        <strong>Sarah Chen</strong>
+                        <span>CTO, TechSolutions Inc.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Section with Login Form -->
+        <div class="right-section">
+            <div class="form-header">
+                <h2 class="form-title">Sign In to Your Account</h2>
+                <p class="form-subtitle">Enter your credentials to access MailFlow</p>
+            </div>
+            
+            <form id="loginForm" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label" for="login-email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" name="email" id="login-email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" name="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="submit-btn login-btn">
+                    <i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Sign In
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            
+            <button type="button" class="google-btn">
+                <i class="fab fa-google" style="margin-right: 10px;"></i>
+                Sign in with Google
+            </button>
+            
+            <div class="register-link">
+                <p>Don't have an account? <a href="{% url 'register' %}">Create new account</a></p>
+            </div>
+            
+            <div class="footer">
+                <p>By signing in, you agree to MailFlow's <a href="#" style="color: #2d547d;">Terms of Service</a> and <a href="#" style="color: #2d547d;">Privacy Policy</a></p>
+                <p style="margin-top: 10px;">&copy; 2023 MailFlow. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'users/login.js' %}"></script>
+</body>
+</html>

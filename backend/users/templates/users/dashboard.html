@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MailFlow | Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/register.css' %}">
+    <link rel="stylesheet" href="{% static 'users/dashboard.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                <div class="logo-text">MailFlow</div>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a>
+
+
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <button class="extract-btn" id="extractBtn">
+                <i class="fas fa-download"></i> Extract Emails
+            </button>
+
+            <div class="user-profile" id="userProfile">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="user-name">{{ user_email }}</span>
+                <i class="fas fa-chevron-down"></i>
+
+                <!-- Dropdown Menu -->
+                <div class="dropdown-menu" id="profileDropdown">
+                    <div class="dropdown-header">
+                        <div class="dropdown-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="dropdown-user-info">
+                            <h4>{{ user_email }}</h4>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-user-cog"></i> Account Settings</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-shield-alt"></i> Security</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-bell"></i> Notifications</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+
+            <div class="sidebar-header">
+                <h3><i class="fas fa-folder"></i> Your Folders</h3>
+                <button class="icon-btn" id="createFolderBtn" title="Create New Folder">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div class="folder-list" id="folderList">
+                {% for folder in folders %}
+                <div class="folder-item" data-id="{{ folder.id }}">
+                    <div class="folder-info">
+                        <i class="fas fa-folder"></i>
+                        <span class="folder-name">{{ folder.name }}</span>
+                    </div>
+                    <div class="folder-actions">
+                        <i class="fas fa-edit rename-btn" title="Rename"></i>
+                        <i class="fas fa-trash-alt delete-btn" title="Delete"></i>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No folders yet</p>
+                {% endfor %}
+            </div>
+
+
+
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Stats Cards -->
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h3>Welcome to MailFlow</h3>
+                <p>Select a folder from the sidebar to view your extracted emails, or click "Extract Emails" to start a
+                    new extraction.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Folder Modal -->
+    <div class="modal-overlay" id="folderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-folder-plus"></i> Create New Folder</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+
+            <form id="createFolderForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <!-- Folder Name -->
+                    <label for="domainName">Folder Name</label>
+                    <input type="text" id="folderName" name="folder_name"
+                        placeholder="Enter folder name (e.g. Bills, Work)" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="domainName">
+                        <i class="fas fa-globe"></i> Domain Name
+                    </label>
+                    <input type="text" id="domainName" class="form-control"
+                        placeholder="Enter domain name (e.g., example.com)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="senderEmail">
+                        <i class="fas fa-at"></i> Sender Email
+                    </label>
+                    <input type="email" id="senderEmail" class="form-control" placeholder="Enter sender email address">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="fileType">
+                        <i class="fas fa-file"></i> File Type
+                    </label>
+                    <select id="fileType" class="form-control">
+                        <option value="">Select file type</option>
+                        <option value="pdf">PDF (.pdf)</option>
+                        <option value="doc">Word Document (.doc, .docx)</option>
+                        <option value="xls">Excel (.xls, .xlsx)</option>
+                        <option value="txt">Text File (.txt)</option>
+                        <option value="image">Images (.jpg, .png, .gif)</option>
+                        <option value="all">All File Types</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary" id="createBtn">
+                        <i class="fas fa-plus-circle"></i> Create Folder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal logout-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-sign-out-alt"></i> Confirm Logout</h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="logout-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <p>Are you sure you want to logout from MailFlow?</p>
+                <p class="logout-note">You will need to login again to access your account.</p>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="cancelLogout">
+                    Cancel
+                </button>
+                <button type="button" class="btn-primary logout-confirm" id="confirmLogout">
+                    Yes, Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context menu removed -->
+
+    <script src="{% static 'users/dashboard.js' %}?v={% now 'U' %}3"></script>
+</body>
+
+</html>
