@@ -30,8 +30,10 @@ This project is currently in the initial working stage, including folder creatio
 ## 👨‍🏫 Project Guide
 **Guide Name:** MR. Gopeekrishnan R  
 
+---
+
 ## 👨‍🏫 Project Co-ordinator
-**Guide Co-ordinator Name:** Dr. Jijo Varghese  
+**Co-ordinator Name:** Dr. Jijo Varghese  
 ---
 
 ## 🚀 Project Status
