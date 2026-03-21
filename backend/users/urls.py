@@ -1,21 +1,24 @@
-# urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
     path("register/", views.register, name="register"),
-    path("verify-otp/", views.verify_otp, name="verify_otp"),
-    path("resend-otp/", views.resend_otp, name="resend_otp"),
-    path("login/", views.login, name="login"),
-    path("logout/", views.logout_view, name="logout"),
     path("dashboard/", views.dashboard, name="dashboard"),
     path("create-folder/", views.create_folder, name="create_folder"),
-    
     path("rename-folder/<int:folder_id>/", views.rename_folder, name="rename_folder"),
-    path('delete-folder/<int:folder_id>/', views.delete_folder, name='delete_folder'),
-    path("forgot-password/", views.forgot_password, name="forgot_password"),
-    path("verify-recovery/", views.verify_recovery, name="verify_recovery"),
-    path("verify-recovery-otp/", views.verify_recovery_otp, name="verify_recovery_otp"),
-    path("reset-password/", views.reset_password, name="reset_password"),
-    path("forgot-password/send-otp/", views.forgot_password_send_otp, name="forgot_password_send_otp"),
+    path("delete-folder/<int:folder_id>/", views.delete_folder, name="delete_folder"),
+    path("extract/", views.extract_emails, name="extract_emails"),
+    path("task-status/<str:task_id>/", views.get_task_status, name="task_status"),
+    path("logout/", views.logout_view, name="logout"),
+
+    path("download/<int:file_id>/", views.download_attachment, name="download_attachment"),
+    path("preview/<int:file_id>/", views.preview_attachment, name="preview_attachment"),
+
+    path("set-passkey/", views.set_passkey, name="set_passkey"),
+    path("verify-passkey/", views.verify_passkey, name="verify_passkey"),
+    path("send-passkey-otp/", views.send_passkey_otp, name="send_passkey_otp"),
+    path("verify-passkey-otp/", views.verify_passkey_otp, name="verify_passkey_otp"),
+
+    path("folder/<int:folder_id>/attachments/", views.get_folder_attachments, name="folder_attachments"),
+    path("delete-attachment/<int:file_id>/", views.delete_attachment, name="delete_attachment"),
 ]

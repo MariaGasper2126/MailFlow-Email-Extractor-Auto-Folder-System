@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import OTP
+from .models import Folder, Rule
 
-admin.site.register(OTP)
-
-
+admin.site.register(Folder)
+admin.site.register(Rule)
